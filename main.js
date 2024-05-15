@@ -5,7 +5,7 @@ async function fetchData(){
   
   try {
     
-    const response = await fetch("http://localhost:3030/api/product/")
+    const response = await fetch("https://api-painel-makeart.onrender.com/api/product")
     
     if(!response.ok){
       throw new Error("Erro ao buscar os produtos")
@@ -64,6 +64,14 @@ async function fetchData(){
 }
 
 
-
-
 fetchData()
+
+
+
+fetch("https://api-painel-makeart.onrender.com/api/product")
+.then(data => data.json())
+.then(res => console.log(res))
+
+
+
+console.log("foda")
