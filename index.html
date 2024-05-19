@@ -5,29 +5,39 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="styles/output.css">
 
-  <title>Makeart Catálago</title>
+  <title>Makeart Catálogo</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" 
+    integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" 
+    crossorigin="anonymous" 
+    referrerpolicy="no-referrer" 
+  />
 </head>
 <body>
-  <div class="h-screen bg-purple-900 overflow-hidden">
+  <div class="h-screen bg-purple-900 overflow-hidden relative">
 
     <div class="h-1/4 w-full bg-white p-3 flex flex-col justify-between rounded-es-3xl rounded-ee-3xl text-purple-950">
-      <div>
-        <p class="text-base font-bold">Makeart</p>
-        <p>maquiagens</p>
+      <div class="flex items-center justify-between">
+        <div> 
+          <p class="text-base font-bold md:text-2xl">Makeart</p>
+          <p>maquiagens</p>
+        </div>
+        <i id="request" class="fa-solid fa-cart-shopping text-4xl relative cursor-pointer">
+          <span id="cartNumber" class="absolute -top-2 -right-1 text-xs bg-red-600 text-white py-1 px-2 rounded-full">0</span>
+        </i>
       </div>
       <div class="w-full">
-        <h1 class="text-center text-5xl">Catálago</h1>
+        <h1 class="text-center text-5xl">Catálogo</h1>
       </div>
       <div class="w-full">
         <ul class="flex justify-between items-center text-sm">
-          <li class="flex">
+          <li class="flex md:text-xl">
             <p class="mr-1">Instagram:</p>
-            <a href="">@makeartoficial</a>
+            <a href="https://www.instagram.com/makeartoficial/?igsh=MWQ5Y2d3eTNpMDk3Zg%3D%3D&utm_source=qr" target="_blank">@makeartoficial</a>
           </li>
          
-          <li class="flex">
+          <li class="flex md:text-xl">
             <p class="mr-1">Whatsapp:</p>
-            <a href="">(32) 99137-0535</a>
+            <a href="https://api.whatsapp.com/send?phone=32991370535" target="_blank">(32) 99137-0535</a>
           </li>
         </ul>
       </div>
@@ -35,11 +45,29 @@
 
     <div  class="h-3/4 py-4 w-full">
       
-      <div id="allProducts" class="w-full h-full flex justify-center gap-2 flex-wrap overflow-y-scroll"></div>
+      <div id="allProducts" class="w-full h-full flex justify-center gap-2 flex-wrap overflow-y-scroll">
+        
+        <div id="msgLoading" class="w-full h-full flex items-center justify-center">
+          <p class=" bg-white text-2xl p-3 rounded">Carregando produtos...</p>
+        </div>
+
+      </div>
+
+      <div id="menu" class="absolute h-full w-full top-0 -left-full bg-white text-purple-900 p-4 transition-all">
+        <i id="close" class="fa-solid fa-xmark w-full text-4xl text-right"></i>
+        <h2 class="text-center text-2xl font-bold mb-10">Meus pedidos</h2>
+        <ul id="wishList" class="h-1/2"></ul>
+        <div class="flex justify-between mb-20">
+          <p class="text-2xl">Total:</p>
+          <span id="priceAll" class="text-2xl"></span>
+        </div>
+        <li class="w-full text-center list-none">
+          <a id="makeRequest" class="text-center text-xl py-2 px-4 bg-purple-900 text-white rounded" target="_blank">Enviar pedido</a>
+        </li>  
+      </div>
 
     </div>
   </div>
-
 
   <script src="main.js"></script>
 </body>
