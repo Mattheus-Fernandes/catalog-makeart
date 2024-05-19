@@ -9,9 +9,6 @@ const cartNumber = document.getElementById("cartNumber")
 //Array de produtos
 const shoppindCart = []
 
-//Array de pedidos carrinho
-const requestCart = []
-
 //Card dos produtos
 const cards = document.querySelectorAll("#card")
 
@@ -105,63 +102,68 @@ setTimeout(() => {
   
   btnAdd.forEach(btn => {
     
-   btn.addEventListener("click", (e) => {
+    btn.addEventListener("click", (e) => {
+      //Array de pedidos carrinho
+      const requestCart = []
 
-    const card = e.target.closest("#card")
-    const product = card.querySelector("h2").textContent
-    const brand = card.querySelector("p").textContent
-    const input = card.querySelector('input[type="text"]')
-    const qty = input.value
-    const priceText = card.querySelectorAll("p")[1].textContent
-    const priceMatch = Number(priceText.match(/\d+/)[0])
-  
-
+      const card = e.target.closest("#card")
+      const product = card.querySelector("h2").textContent
+      const brand = card.querySelector("p").textContent
+      const input = card.querySelector('input[type="text"]')
+      const qty = input.value
+      const priceText = card.querySelectorAll("p")[1].textContent
+      const priceMatch = Number(priceText.match(/\d+/)[0])
     
-    const pedido = {
-      product, brand, qty, priceMatch
-    }
+
+      
+      const pedido = {
+        product, brand, qty, priceMatch
+      }
+      
+      shoppindCart.push(pedido)
     
-    shoppindCart.push(pedido)
-  
-    input.value = "OK"
+      input.value = "OK"
 
-    wishList.innerHTML = '';
+      wishList.innerHTML = '';
 
-    shoppindCart.forEach(e => {
+      shoppindCart.forEach(e => {
 
-      const li = document.createElement("li")
-      li.classList.add("flex", "items-center", "justify-between")
-      
-      const qty = document.createElement("p")
-      
-      const product = document.createElement("p")
-      product.classList.add("mx-1")
-      
-      const brand = document.createElement("p")
+        const li = document.createElement("li")
+        li.classList.add("flex", "items-center", "justify-between")
+        
+        const qty = document.createElement("p")
+        
+        const product = document.createElement("p")
+        product.classList.add("mx-1")
+        
+        const brand = document.createElement("p")
 
-      const price = document.createElement("p")
+        const price = document.createElement("p")
 
-      const value = document.createElement("p")
-      value.id = "value"
+        const value = document.createElement("p")
+        value.id = "value"
 
-      qty.textContent = e.qty
-      product.textContent = e.product 
-      brand.textContent = e.brand
-      price.textContent = `R$${e.priceMatch}`
-      value.textContent = `R$${Number(e.qty) * e.priceMatch}`
+        qty.textContent = e.qty
+        product.textContent = e.product 
+        brand.textContent = e.brand
+        price.textContent = `R$${e.priceMatch}`
+        value.textContent = `R$${Number(e.qty) * e.priceMatch}`
+        
+        
+        requestCart.push(Number(e.qty))
       
+        const arrUnique = requestCart.reduce((acc, curr) => acc + curr, 0)
+        cartNumber.textContent = arrUnique
+
+        
+        li.append(qty, product, brand, price, value)
+        
+        wishList.append(li)
+        
+      })
       
-      requestCart.push(Number(e.qty))
-      const arrUnique = [...new Set(requestCart)].reduce((acc, curr) => acc + curr, 0)
-      cartNumber.textContent = arrUnique
-    
-      li.append(qty, product, brand, price, value)
-      
-      wishList.append(li)
-      
+      console.log(requestCart)
     })
-    
-  })
   })
   
 }, 4000)
