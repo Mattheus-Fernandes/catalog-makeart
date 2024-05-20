@@ -72,17 +72,18 @@ setTimeout(async () => {
 
     const input = document.createElement("input")
     input.type = "text"
-    input.classList.add("bg-slate-200", "w-1/3", "rounded", "mr-4", "border-none", "outline-none", "px-1")
+    input.placeholder = "Quantidade"
+    input.classList.add("bg-slate-200", "w-full", "md:w-1/2", "rounded", "border-2","border-purple-900", "outline-none", "px-1")
 
-   
-    const button = document.createElement("i")
+    const button = document.createElement("button")
     button.id = "btnAdd"
-    button.classList.add("fa-solid", "fa-plus","bg-purple-900", "text-white", "text-xs", "py-1", "px-2", "rounded", "cursor-pointer")
+    button.textContent = "Adicionar"
+    button.classList.add("bg-purple-900", "text-white", "text-base", "py-1", "px-2", "mt-3","rounded", "cursor-pointer")
     document.body.appendChild(button)
 
-    actions.append(i, input, button)
+    actions.append(i, input)
 
-    cardBody.append(productName, productBrand, productPrice, availableProducts, actions)
+    cardBody.append(productName, productBrand, productPrice, availableProducts, actions, button)
 
     card.append(img, cardBody)
 
@@ -93,7 +94,6 @@ setTimeout(async () => {
   msgLoading.style.display = "none"
 
 }, 3000)
-
 
 //Captura os button dos cards
 setTimeout(() => {
