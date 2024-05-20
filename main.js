@@ -37,7 +37,7 @@ setTimeout(async () => {
 
     const card = document.createElement("div")
     card.id = "card"
-    card.classList.add("w-2/5", "md:w-1/5", "h-3/5", "md:h-auto", "p-2", "bg-white", "rounded-md", "flex", "flex-col", "justify-around", "overflow-hidden")
+    card.classList.add("w-2/5", "md:w-1/5", "h-auto", "md:h-auto", "p-2", "bg-white", "rounded-md", "flex", "flex-col", "justify-around", "overflow-hidden")
 
     const img = document.createElement("img")
     img.src = e.urlImage

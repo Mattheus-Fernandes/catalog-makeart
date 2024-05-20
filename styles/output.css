@@ -891,6 +891,10 @@ video {
   height: 100vh;
 }
 
+.h-auto {
+  height: auto;
+}
+
 .w-2\/5 {
   width: 40%;
 }
