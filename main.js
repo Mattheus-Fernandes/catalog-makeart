@@ -5,12 +5,8 @@ const priceAll = document.getElementById("priceAll")
 const makeRequest = document.getElementById("makeRequest")
 const cartNumber = document.getElementById("cartNumber")
 
-
 //Array de produtos
 const shoppindCart = []
-
-//Card dos produtos
-const cards = document.querySelectorAll("#card")
 
 //Menu de pedidos
 const menu = document.getElementById("menu")
@@ -24,7 +20,7 @@ const btnClose = document.getElementById("close")
 
 setTimeout(async () => {
 
-  const response = await fetch("https://api-painel-makeart.onrender.com/api/product")
+  const response = await fetch("https://makeart-serve-dcmz.onrender.com/api/product")
 
   if (!response.ok) {
     throw new Error("Erro ao buscar os produtos")
@@ -32,64 +28,19 @@ setTimeout(async () => {
 
   const data = await response.json()
 
+  let allCards = ""
+
   data.forEach(e => {
+
     const availableProductsTotal = e.amount - e.sales
 
-    const card = document.createElement("div")
-    card.id = "card"
-    card.classList.add("w-2/5", "md:w-1/5", "h-auto", "md:h-auto", "p-2", "bg-white", "rounded-md", "flex", "flex-col", "justify-around", "overflow-hidden")
+    const card = createCard(e.urlImage, e.product, e.brand, e.price, availableProductsTotal)
 
-    const img = document.createElement("img")
-    img.src = e.urlImage
-
-    const cardBody = document.createElement("div")
-
-    const productName = document.createElement("h2")
-    productName.classList.add("font-bold")
-    productName.textContent = e.product
-
-    const productBrand = document.createElement("p")
-    productBrand.textContent = e.brand
-
-    const productPrice = document.createElement("p")
-    productPrice.textContent = `Valor: R$${e.price}`
-
-    const availableProducts = document.createElement("p")
-    availableProducts.classList.add("text-sm", "text-slate-500")
-
-    if (availableProductsTotal == 0) {
-      availableProducts.textContent = "Indisponivel"
-      availableProducts.classList.add("!text-red-500")
-    } else {
-      availableProducts.textContent = `Disponíveis: ${availableProductsTotal}`
-    }
-
-    const actions = document.createElement("div")
-    actions.classList.add("flex", "items-center", "mt-2")
-
-    const i = document.createElement("i")
-    i.classList.add("fa-solid", "fa-cart-shopping", "mr-2")
-
-    const input = document.createElement("input")
-    input.type = "text"
-    input.placeholder = "Quantidade"
-    input.classList.add("bg-slate-200", "w-full", "md:w-1/2", "rounded", "border-2","border-purple-900", "outline-none", "px-1")
-
-    const button = document.createElement("button")
-    button.id = "btnAdd"
-    button.textContent = "Adicionar"
-    button.classList.add("bg-purple-900", "text-white", "text-base", "py-1", "px-2", "mt-3","rounded", "cursor-pointer")
-    document.body.appendChild(button)
-
-    actions.append(i, input)
-
-    cardBody.append(productName, productBrand, productPrice, availableProducts, actions, button)
-
-    card.append(img, cardBody)
-
-    allProducts.appendChild(card)
+    allCards += card
 
   })
+
+  allProducts.innerHTML = allCards
 
   msgLoading.style.display = "none"
 
@@ -162,7 +113,6 @@ setTimeout(() => {
         
       })
       
-      console.log(requestCart)
     })
   })
   
@@ -213,3 +163,33 @@ makeRequest.addEventListener("click", () => {
   makeRequest.href = whatsappLink
   
 })
+
+
+function createCard(src, product, brand, price, stock){
+
+  const availabilityText = stock > 0 ? `<p class="text-sm text-slate-500">Disponíveis: ${stock}</p>` : `<p class="text-sm text-red-500">Indisponível</p>`
+
+  const card = `
+  <div id="card" class="w-2/5 md:w-1/5 h-auto md:h-auto p-2 bg-white rounded-md flex flex-col justify-around overflow-hidden">
+    <img src="${src}">
+    <div>
+      <h2 class="font-bold">${product}</h2>
+      <p>${brand}</p>
+      <p>Valor: R$${price}</p>
+      ${availabilityText}
+      <div class="flex items-center mt-2">
+        <i class="fa-solid fa-cart-shopping mr-2"></i>
+        <input type="text" placeholder="Quantidade" class="bg-slate-200 w-full md:w-1/2 rounded border-2 border-purple-900 outline-none px-1">
+      </div>
+      <button id="btnAdd" class="bg-purple-900 text-white text-base py-1 px-2 mt-3 rounded cursor-pointer">Adicionar</button>
+    </div>
+  </div>
+  `
+
+  return card
+
+}
+
+function createTable(){
+  
+}
