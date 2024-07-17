@@ -20,7 +20,7 @@ const btnClose = document.getElementById("close")
 
 setTimeout(async () => {
 
-  const response = await fetch("http://191.252.205.55:3030/api/product")
+  const response = await fetch("https://makeartservice.com.br/api/product")
 
   if (!response.ok) {
     throw new Error("Erro ao buscar os produtos")
